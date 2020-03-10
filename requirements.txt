@@ -1,0 +1,5 @@
+SpeechRecognition
+gTTS
+pyglet==1.3.2
+pyaudio
+pynput
