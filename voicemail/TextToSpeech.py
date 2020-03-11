@@ -4,16 +4,21 @@ import pyglet
 import hashlib
 import os
 from gtts import gTTS
-from voicemail.config import TextToSpeechConfig
+from config import LanguageConfig
+import pyttsx3
 
 
 class TextToSpeech:
-    def __init__(self, text) -> None:
+    def __init__(self, text, language=LanguageConfig.text_to_speech_english) -> None:
         self.text = text
-        self.lang = TextToSpeechConfig.lang
+        self.lang = language
         self.file_address = self.__build_file_address()
-        self.tts = gTTS(text=self.text, lang=self.lang)
-        self.__save_to_file()
+        # self.tts = gTTS(text=self.text, lang=self.lang)
+        # self.__save_to_file()
+
+        # self.tts.setProperty('voice', self.voices[1].id)
+        self.tts = pyttsx3.init()
+        # self.voices = self.tts.getProperty('voices')  # getting details of current voice
 
     def __build_file_address(self):
         return os.path.join(
@@ -25,9 +30,12 @@ class TextToSpeech:
         return pyglet.media.load(self.file_address, streaming=False)
 
     def speak_out_loud(self):
-        speech = self.__to_speech()
-        speech.play()
-        time.sleep(speech.duration)
+        # speech = self.__to_speech()
+        # speech.play()
+        # time.sleep(speech.duration)
+
+        self.tts.say(self.text)
+        self.tts.runAndWait()
 
     def __save_to_file(self):
         if not os.path.exists(self.file_address):
