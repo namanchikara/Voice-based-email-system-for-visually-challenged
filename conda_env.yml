@@ -1,0 +1,10 @@
+name: voicemail
+dependencies:
+- python>3.6
+- pyaudio
+- pip
+
+- pip:
+  - SpeechRecognition
+  - pyglet==1.3.2
+  - pyttsx3
