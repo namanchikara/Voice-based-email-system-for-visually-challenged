@@ -1,11 +1,11 @@
-import time
-import tempfile
-import pyglet
 import hashlib
 import os
-from gtts import gTTS
-from config import LanguageConfig
+import tempfile
+
+import pyglet
 import pyttsx3
+
+from config import LanguageConfig
 
 
 class TextToSpeech:
@@ -19,6 +19,8 @@ class TextToSpeech:
         # self.tts.setProperty('voice', self.voices[1].id)
         self.tts = pyttsx3.init()
         # self.voices = self.tts.getProperty('voices')  # getting details of current voice
+        self.tts.say(self.text)
+        self.tts.runAndWait()
 
     def __build_file_address(self):
         return os.path.join(
@@ -33,10 +35,8 @@ class TextToSpeech:
         # speech = self.__to_speech()
         # speech.play()
         # time.sleep(speech.duration)
+        pass
 
-        self.tts.say(self.text)
-        self.tts.runAndWait()
-
-    def __save_to_file(self):
-        if not os.path.exists(self.file_address):
-            self.tts.save(self.file_address)
+    # def __save_to_file(self):
+    #     if not os.path.exists(self.file_address):
+    #         self.tts.save(self.file_address)

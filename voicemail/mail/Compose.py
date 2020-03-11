@@ -76,7 +76,7 @@ class Compose:
         if isinstance(response, str) and not None:
             return response.strip()
         print("Something went wrong, retrying.")
-        self.get_text_response_via_speech_recognition()
+        return self.get_text_response_via_speech_recognition()
 
     def validate_choice_of_subject_for(self, choice):
         # if choice.strip().lower() in self.options:
@@ -135,7 +135,7 @@ class Compose:
         response = self.get_text_response_via_speech_recognition()
         if response.lower() in ["yes", "no"]:
             return response
-        self.get_boolean_response()
+        return self.get_boolean_response()
 
     def similar(self, choice):
         for option in self.options:

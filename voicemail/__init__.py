@@ -3,6 +3,7 @@ from pathlib import Path
 
 from config import MailConfig
 from mail.Mail import Mail
+from mail.Recipient import Recipient
 
 sys.path.extend([str(Path(sys.argv[0]).parent), str(Path(sys.argv[0]).parent.parent)])
 
@@ -16,7 +17,19 @@ __all__ = [
     TextToSpeech
 ]
 
-if __name__ == '__main__':
-    TextToSpeech("Welcome to voice based email").speak_out_loud()
-    Mail(MailConfig.email, MailConfig.password, 'singhnamanchikara@gmail.com').send_mail()
 
+def loop():
+    print("Welcome to voice based email")
+    TextToSpeech("Welcome to voice based email").speak_out_loud()
+
+    print("To whom do you want to send an email?")
+    TextToSpeech("To whom do you want to send an email?").speak_out_loud()
+    recipient = Recipient().get_recipient()
+    if recipient is not None:
+        Mail(MailConfig.email, MailConfig.password, recipient).send_mail()
+    else:
+        loop()
+
+
+if __name__ == '__main__':
+    loop()

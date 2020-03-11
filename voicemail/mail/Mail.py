@@ -14,9 +14,11 @@ class Mail:
         self.to_email_address = to_mail
 
     def send_mail(self):
+        print("Do you want to send this email? Say yes or no")
         TextToSpeech("Do you want to send this email? Say yes or no")
         via_speech_recognition = self.__get_text_response_via_speech_recognition()
         if via_speech_recognition == "yes":
+            print("Sending mail")
             TextToSpeech("Sending mail").speak_out_loud()
             mail = smtplib.SMTP('smtp.gmail.com', 587)
             mail.ehlo()
@@ -28,6 +30,7 @@ class Mail:
             TextToSpeech("Your mail has been sent.").speak_out_loud()
             mail.close()
         else:
+            print("Mail discarded.")
             TextToSpeech("Mail discarded.").speak_out_loud()
 
     def __get_text_response_via_speech_recognition(self):
@@ -35,4 +38,4 @@ class Mail:
         if isinstance(response, str) and not None:
             return response.strip()
         print("Something went wrong, retrying.")
-        self.__get_text_response_via_speech_recognition()
+        return self.__get_text_response_via_speech_recognition()
